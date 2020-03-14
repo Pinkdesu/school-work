@@ -18,11 +18,18 @@ const MainContent = styled.main`
 `;
 
 const MainLab1 = () => {
-  const gettingTask1Answer = async () => {};
+  const gettingTask1Answer = () =>
+    axios({
+      method: "get",
+      url: "http://localhost:9000/testAPI",
+      responseType: "text"
+    })
+      .then(responce => responce.data)
+      .catch(error => alert(error));
 
   return (
     <MainContent>
-      <MainContentItem legend="Задани 1">
+      <MainContentItem legend="Задани 1" fetchingData={gettingTask1Answer}>
         <FormInput
           name="task1"
           type="number"

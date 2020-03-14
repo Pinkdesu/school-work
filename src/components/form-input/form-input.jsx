@@ -17,7 +17,7 @@ const Input = styled.input.attrs(props => ({
   margin-left: 10px;
 `;
 
-const FormInput = ({ label, id, type }) => {
+const FormInput = ({ label, name, type }) => {
   const [value, setValue] = useState(0);
 
   const handleChange = ({ target: { value } }) => {

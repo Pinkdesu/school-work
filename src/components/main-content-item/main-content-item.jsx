@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const MainContentForm = styled.form`
   width: 100%;
@@ -44,15 +45,23 @@ const Button = styled.button`
   text-align: center;
 `;
 
-const MainContentItem = ({ children, legend }) => {
+const MainContentItem = ({ children, legend, fetchingData }) => {
+  const [answerValue, setAnswerValue] = useState("");
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const answer = await fetchingData();
+    setAnswerValue(answer);
+  };
+
   return (
-    <MainContentForm>
+    <MainContentForm onSubmit={handleSubmit}>
       <FormFieldset>
         <FormFieldsetLegend>{legend}</FormFieldsetLegend>
         <FormContent>
           <InputsBox>
             {children}
-            <AnswerBox>Ответ: </AnswerBox>
+            <AnswerBox>Ответ: {answerValue}</AnswerBox>
           </InputsBox>
           <ButtonBox>
             <Button>Получить</Button>
