@@ -1,6 +1,7 @@
 import React from "react";
 import MainContentItem from "../main-content-item/main-content-item.jsx";
 import FormInput from "../form-input/form-input.jsx";
+import axios from "axios";
 import styled from "styled-components";
 
 const MainContent = styled.main`
@@ -17,6 +18,8 @@ const MainContent = styled.main`
 `;
 
 const MainLab1 = () => {
+  const gettingTask1Answer = async () => {};
+
   return (
     <MainContent>
       <MainContentItem legend="Задани 1">
