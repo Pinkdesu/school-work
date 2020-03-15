@@ -8,7 +8,9 @@ export const initialState = {
   task2_a: "0",
   task2_b: "0",
   task2_c: "0",
-  task3_date: ""
+  task3_date: "",
+  task4_number: "1",
+  task5_number: "1"
 };
 
 export const indexReducer = (state, { type, payload }) => {
@@ -37,6 +39,16 @@ export const indexReducer = (state, { type, payload }) => {
       return {
         ...state,
         task3_date: payload["value"]
+      };
+    case types.SET_TASK4_NUMBER:
+      return {
+        ...state,
+        task4_number: payload["value"]
+      };
+    case types.SET_TASK5_NUMBER:
+      return {
+        ...state,
+        task5_number: payload["value"]
       };
     default:
       return state;

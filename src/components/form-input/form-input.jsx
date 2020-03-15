@@ -12,11 +12,10 @@ const InputLabel = styled.label`
 const Input = styled.input.attrs(props => ({
   type: props.type,
   name: props.name,
-  value: props.value,
-  min: -999,
-  max: 999
+  value: props.value
 }))`
   margin-left: 10px;
+  width: 130px;
 `;
 
 const FormInput = ({ defaultValue, label, name, type, actionType }) => {

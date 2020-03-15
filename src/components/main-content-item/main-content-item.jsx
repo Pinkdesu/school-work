@@ -70,6 +70,14 @@ const MainContentItem = ({ children, legend, fetchingData, name }) => {
         answer = await fetchingData(state["task3_date"]);
         break;
       }
+      case "task4": {
+        answer = await fetchingData(state["task4_number"]);
+        break;
+      }
+      case "task5": {
+        answer = await fetchingData(state["task5_number"]);
+        break;
+      }
     }
     setAnswerValue(answer);
   };

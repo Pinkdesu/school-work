@@ -11,7 +11,7 @@ const MainContent = styled.main`
   width: 40%;
   min-width: 500px;
   padding: 40px 20px;
-  margin-top: 200px;
+  margin-top: 50px;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -45,6 +45,24 @@ const MainLab1 = () => {
       .then(responce => responce.data)
       .catch(error => alert(error));
 
+  const gettingTask4Data = number =>
+    axios({
+      method: "get",
+      url: `http://localhost:9000/fib/${number}`,
+      responseType: "text"
+    })
+      .then(responce => responce.data)
+      .catch(error => alert(error));
+
+  const gettingTask5Data = region =>
+    axios({
+      method: "get",
+      url: `http://localhost:9000/regions/${region}`,
+      responseType: "text"
+    })
+      .then(responce => responce.data)
+      .catch(error => alert(error));
+
   return (
     <MainContent>
       <MainContentItem
@@ -56,7 +74,7 @@ const MainLab1 = () => {
           defaultValue={0}
           name="task1-number"
           type="number"
-          label="Чтобы получить число прописью введите его:"
+          label="Введите число:"
           actionType={types.SET_TASK1_VALUE}
         />
       </MainContentItem>
@@ -89,16 +107,44 @@ const MainLab1 = () => {
         />
       </MainContentItem>
       <MainContentItem
-        legend="Задание 2. Вернуть день недели."
+        legend="Задание 3. Вернуть день недели."
         fetchingData={gettingTask3Data}
         name="task3"
       >
         <FormInput
-          defaultValue={0}
+          defaultValue=""
           name="task3-date"
           type="date"
           label="Выберите дату:"
           actionType={types.SET_TASK3_DATE}
+        />
+      </MainContentItem>
+
+      <MainContentItem
+        legend="Задание 4. Вернуть число Фибоначчи."
+        fetchingData={gettingTask4Data}
+        name="task4"
+      >
+        <FormInput
+          defaultValue={1}
+          name="task4-number"
+          type="number"
+          label="Выберите дату:"
+          actionType={types.SET_TASK4_NUMBER}
+        />
+      </MainContentItem>
+
+      <MainContentItem
+        legend="Задание 5. Вернуть название региона."
+        fetchingData={gettingTask5Data}
+        name="task5"
+      >
+        <FormInput
+          defaultValue={1}
+          name="task5-number"
+          type="number"
+          label="Введите номер региона:"
+          actionType={types.SET_TASK5_NUMBER}
         />
       </MainContentItem>
     </MainContent>
