@@ -18,10 +18,10 @@ const MainContent = styled.main`
 `;
 
 const MainLab1 = () => {
-  const gettingTask1Answer = () =>
+  const gettingTask1Answer = value =>
     axios({
       method: "get",
-      url: "http://localhost:9000/testAPI",
+      url: `http://localhost:9000/number/${value}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -29,7 +29,7 @@ const MainLab1 = () => {
 
   return (
     <MainContent>
-      <MainContentItem legend="Задани 1" fetchingData={gettingTask1Answer}>
+      <MainContentItem legend="Задание 1" fetchingData={gettingTask1Answer}>
         <FormInput
           name="task1"
           type="number"

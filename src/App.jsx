@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
+import { ContextApp, initialState, indexReducer } from "./reducers/reducer.jsx";
 import MainLab1 from "./components/main-lab1/main-lab1.jsx";
 import styled from "styled-components";
 
@@ -11,10 +12,14 @@ const Main = styled.div`
 `;
 
 const App = () => {
+  const [state, dispatch] = useReducer(indexReducer, initialState);
+
   return (
-    <Main>
-      <MainLab1 />
-    </Main>
+    <ContextApp.Provider value={{ dispatch, state }}>
+      <Main>
+        <MainLab1 />
+      </Main>
+    </ContextApp.Provider>
   );
 };
 

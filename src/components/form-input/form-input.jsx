@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ContextApp } from "../../reducers/reducer.jsx";
+import { SET_VALUE } from "../../constants.js";
 import styled from "styled-components";
 
 const InputLabel = styled.label`
@@ -11,7 +13,9 @@ const InputLabel = styled.label`
 const Input = styled.input.attrs(props => ({
   type: props.type,
   name: props.name,
-  value: props.value
+  value: props.value,
+  min: -999,
+  max: 999
 }))`
   width: 80px;
   margin-left: 10px;
@@ -19,9 +23,16 @@ const Input = styled.input.attrs(props => ({
 
 const FormInput = ({ label, name, type }) => {
   const [value, setValue] = useState(0);
+  const { dispatch } = useContext(ContextApp);
 
   const handleChange = ({ target: { value } }) => {
     setValue(value);
+    dispatch({
+      type: SET_VALUE,
+      payload: {
+        value: value
+      }
+    });
   };
 
   return (

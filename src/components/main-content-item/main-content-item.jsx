@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ContextApp } from "../../reducers/reducer.jsx";
 import styled from "styled-components";
-import axios from "axios";
 
 const MainContentForm = styled.form`
   width: 100%;
@@ -47,10 +47,11 @@ const Button = styled.button`
 
 const MainContentItem = ({ children, legend, fetchingData }) => {
   const [answerValue, setAnswerValue] = useState("");
+  const { state } = useContext(ContextApp);
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const answer = await fetchingData();
+    const answer = await fetchingData(state.value);
     setAnswerValue(answer);
   };
 
