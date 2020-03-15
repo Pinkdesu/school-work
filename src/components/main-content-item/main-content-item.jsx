@@ -45,13 +45,28 @@ const Button = styled.button`
   text-align: center;
 `;
 
-const MainContentItem = ({ children, legend, fetchingData }) => {
+const MainContentItem = ({ children, legend, fetchingData, name }) => {
   const [answerValue, setAnswerValue] = useState("");
   const { state } = useContext(ContextApp);
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const answer = await fetchingData(state.value);
+    let answer = "def";
+
+    switch (name) {
+      case "task1": {
+        answer = await fetchingData(state["task1_number"]);
+        break;
+      }
+      case "task2": {
+        answer = await fetchingData(
+          state["task2_a"],
+          state["task2_b"],
+          state["task2_c"]
+        );
+        break;
+      }
+    }
     setAnswerValue(answer);
   };
 

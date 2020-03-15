@@ -50,8 +50,8 @@ const NUMBERS_ARRAY = [
   ]
 ];
 
-router.get("/number/:value", function(req, res, next) {
-  const value = req.params["value"];
+router.get("/number/:value", function(request, response) {
+  const value = request.params["value"];
   const number = Math.abs(+value);
   const valueLength = +value >= 0 ? value.length : value.length - 1;
   let answer = +value >= 0 ? "" : "минус ";
@@ -90,7 +90,28 @@ router.get("/number/:value", function(req, res, next) {
     }
   }
 
-  res.send(answer);
+  response.send(answer);
+});
+
+router.get("/equation", function(request, response) {
+  let a = +request.query.a;
+  let b = +request.query.b;
+  let c = +request.query.c;
+  let answer = "";
+
+  let discriminant = b ** 2 - 4 * a * c;
+  if (discriminant >= 0) {
+    if (discriminant === 0) {
+      let x = -b / (2 * a);
+      answer = `x = ${x}, (D = 0)`;
+    } else {
+      let x1 = (-b + discriminant ** (1 / 2)) / (2 * a);
+      let x2 = (-b - discriminant ** (1 / 2)) / (2 * a);
+      answer = `x1 = ${x1}, x2 = ${x2}, (D > 0)`;
+    }
+  } else answer = "уравнение не имеет корней (D < 0)";
+
+  response.send(answer);
 });
 
 module.exports = router;
