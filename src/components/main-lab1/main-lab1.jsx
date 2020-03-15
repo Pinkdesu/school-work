@@ -36,6 +36,15 @@ const MainLab1 = () => {
       .then(responce => responce.data)
       .catch(error => alert(error));
 
+  const gettingTask3Data = date =>
+    axios({
+      method: "get",
+      url: `http://localhost:9000/day?date=${date}`,
+      responseType: "text"
+    })
+      .then(responce => responce.data)
+      .catch(error => alert(error));
+
   return (
     <MainContent>
       <MainContentItem
@@ -44,6 +53,7 @@ const MainLab1 = () => {
         name="task1"
       >
         <FormInput
+          defaultValue={0}
           name="task1-number"
           type="number"
           label="Чтобы получить число прописью введите его:"
@@ -57,22 +67,38 @@ const MainLab1 = () => {
         name="task2"
       >
         <FormInput
+          defaultValue={0}
           name="task2-a"
           type="number"
           label="Введите a:"
           actionType={types.SET_TASK2_A}
         />
         <FormInput
+          defaultValue={0}
           name="task2-b"
           type="number"
           label="Введите b:"
           actionType={types.SET_TASK2_B}
         />
         <FormInput
+          defaultValue={0}
           name="task2-c"
           type="number"
           label="Введите c:"
           actionType={types.SET_TASK2_C}
+        />
+      </MainContentItem>
+      <MainContentItem
+        legend="Задание 2. Вернуть день недели."
+        fetchingData={gettingTask3Data}
+        name="task3"
+      >
+        <FormInput
+          defaultValue={0}
+          name="task3-date"
+          type="date"
+          label="Выберите дату:"
+          actionType={types.SET_TASK3_DATE}
         />
       </MainContentItem>
     </MainContent>

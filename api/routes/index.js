@@ -114,4 +114,20 @@ router.get("/equation", function(request, response) {
   response.send(answer);
 });
 
+router.get("/day", function(request, response) {
+  let query = request.query["date"];
+  let date = new Date(query);
+  let dayNumber = date.getDay();
+  let days = [
+    "воскресенье",
+    "понедельник",
+    "вторник",
+    "среда",
+    "четверг",
+    "пятница",
+    "суббота"
+  ];
+  response.send(days[dayNumber]);
+});
+
 module.exports = router;

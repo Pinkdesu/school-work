@@ -51,7 +51,7 @@ const MainContentItem = ({ children, legend, fetchingData, name }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    let answer = "def";
+    let answer;
 
     switch (name) {
       case "task1": {
@@ -64,6 +64,10 @@ const MainContentItem = ({ children, legend, fetchingData, name }) => {
           state["task2_b"],
           state["task2_c"]
         );
+        break;
+      }
+      case "task3": {
+        answer = await fetchingData(state["task3_date"]);
         break;
       }
     }

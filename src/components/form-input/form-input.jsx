@@ -16,12 +16,11 @@ const Input = styled.input.attrs(props => ({
   min: -999,
   max: 999
 }))`
-  width: 80px;
   margin-left: 10px;
 `;
 
-const FormInput = ({ label, name, type, actionType }) => {
-  const [value, setValue] = useState(0);
+const FormInput = ({ defaultValue, label, name, type, actionType }) => {
+  const [value, setValue] = useState(defaultValue);
   const { dispatch } = useContext(ContextApp);
 
   const handleChange = ({ target: { value } }) => {
