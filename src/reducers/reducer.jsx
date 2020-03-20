@@ -15,40 +15,10 @@ export const initialState = {
 
 export const indexReducer = (state, { type, payload }) => {
   switch (type) {
-    case types.SET_TASK1_VALUE:
+    case types.SET_VALUE:
       return {
         ...state,
-        task1_number: payload["value"]
-      };
-    case types.SET_TASK2_A:
-      return {
-        ...state,
-        task2_a: payload["value"]
-      };
-    case types.SET_TASK2_B:
-      return {
-        ...state,
-        task2_b: payload["value"]
-      };
-    case types.SET_TASK2_C:
-      return {
-        ...state,
-        task2_c: payload["value"]
-      };
-    case types.SET_TASK3_DATE:
-      return {
-        ...state,
-        task3_date: payload["value"]
-      };
-    case types.SET_TASK4_NUMBER:
-      return {
-        ...state,
-        task4_number: payload["value"]
-      };
-    case types.SET_TASK5_NUMBER:
-      return {
-        ...state,
-        task5_number: payload["value"]
+        ...payload
       };
     default:
       return state;

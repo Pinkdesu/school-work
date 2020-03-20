@@ -51,34 +51,7 @@ const MainContentItem = ({ children, legend, fetchingData, name }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    let answer;
-
-    switch (name) {
-      case "task1": {
-        answer = await fetchingData(state["task1_number"]);
-        break;
-      }
-      case "task2": {
-        answer = await fetchingData(
-          state["task2_a"],
-          state["task2_b"],
-          state["task2_c"]
-        );
-        break;
-      }
-      case "task3": {
-        answer = await fetchingData(state["task3_date"]);
-        break;
-      }
-      case "task4": {
-        answer = await fetchingData(state["task4_number"]);
-        break;
-      }
-      case "task5": {
-        answer = await fetchingData(state["task5_number"]);
-        break;
-      }
-    }
+    const answer = await fetchingData(state);
     setAnswerValue(answer);
   };
 

@@ -1,5 +1,4 @@
 import React from "react";
-import * as types from "../../constants.js";
 import MainContentItem from "../main-content-item/main-content-item.jsx";
 import FormInput from "../form-input/form-input.jsx";
 import axios from "axios";
@@ -18,46 +17,46 @@ const MainContent = styled.main`
 `;
 
 const MainLab1 = () => {
-  const gettingTask1Data = value =>
+  const gettingTask1Data = ({ task1_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/number/${value}`,
+      url: `http://localhost:9000/number/${task1_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)
       .catch(error => alert(error));
 
-  const gettingTask2Data = (a, b, c) =>
+  const gettingTask2Data = ({ task2_a, task2_b, task2_c }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/equation?a=${a}&b=${b}&c=${c}`,
+      url: `http://localhost:9000/equation?a=${task2_a}&b=${task2_b}&c=${task2_c}`,
       responseType: "text"
     })
       .then(responce => responce.data)
       .catch(error => alert(error));
 
-  const gettingTask3Data = date =>
+  const gettingTask3Data = ({ task3_date }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/day?date=${date}`,
+      url: `http://localhost:9000/day?date=${task3_date}`,
       responseType: "text"
     })
       .then(responce => responce.data)
       .catch(error => alert(error));
 
-  const gettingTask4Data = number =>
+  const gettingTask4Data = ({ task4_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/fib/${number}`,
+      url: `http://localhost:9000/fib/${task4_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)
       .catch(error => alert(error));
 
-  const gettingTask5Data = region =>
+  const gettingTask5Data = ({ task5_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/regions/${region}`,
+      url: `http://localhost:9000/regions/${task5_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -72,10 +71,9 @@ const MainLab1 = () => {
       >
         <FormInput
           defaultValue={0}
-          name="task1-number"
+          name="task1_number"
           type="number"
           label="Введите число:"
-          actionType={types.SET_TASK1_VALUE}
         />
       </MainContentItem>
 
@@ -86,24 +84,21 @@ const MainLab1 = () => {
       >
         <FormInput
           defaultValue={0}
-          name="task2-a"
+          name="task2_a"
           type="number"
           label="Введите a:"
-          actionType={types.SET_TASK2_A}
         />
         <FormInput
           defaultValue={0}
-          name="task2-b"
+          name="task2_b"
           type="number"
           label="Введите b:"
-          actionType={types.SET_TASK2_B}
         />
         <FormInput
           defaultValue={0}
-          name="task2-c"
+          name="task2_c"
           type="number"
           label="Введите c:"
-          actionType={types.SET_TASK2_C}
         />
       </MainContentItem>
       <MainContentItem
@@ -113,10 +108,9 @@ const MainLab1 = () => {
       >
         <FormInput
           defaultValue=""
-          name="task3-date"
+          name="task3_date"
           type="date"
           label="Выберите дату:"
-          actionType={types.SET_TASK3_DATE}
         />
       </MainContentItem>
 
@@ -127,10 +121,9 @@ const MainLab1 = () => {
       >
         <FormInput
           defaultValue={1}
-          name="task4-number"
+          name="task4_number"
           type="number"
           label="Выберите дату:"
-          actionType={types.SET_TASK4_NUMBER}
         />
       </MainContentItem>
 
@@ -141,10 +134,9 @@ const MainLab1 = () => {
       >
         <FormInput
           defaultValue={1}
-          name="task5-number"
+          name="task5_number"
           type="number"
           label="Введите номер региона:"
-          actionType={types.SET_TASK5_NUMBER}
         />
       </MainContentItem>
     </MainContent>
