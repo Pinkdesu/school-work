@@ -7,7 +7,7 @@
   "author": "Timur <pinkdesu@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --open --hot --mode development",
+    "start": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
   "devDependencies": {
@@ -29,6 +29,7 @@
     "axios": "^0.19.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
     "styled-components": "^5.0.1"
   }
 }

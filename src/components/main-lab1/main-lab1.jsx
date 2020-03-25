@@ -4,18 +4,6 @@ import FormInput from "../form-input/form-input.jsx";
 import axios from "axios";
 import styled from "styled-components";
 
-const MainContent = styled.main`
-  display: flex;
-  flex-flow: column nowrap;
-  width: 40%;
-  min-width: 500px;
-  padding: 40px 20px;
-  margin-top: 50px;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-`;
-
 const MainLab1 = () => {
   const gettingTask1Data = ({ task1_number }) =>
     axios({
@@ -63,11 +51,11 @@ const MainLab1 = () => {
       .catch(error => alert(error));
 
   return (
-    <MainContent>
+    <>
       <MainContentItem
         legend="Задание 1. Вернуть число прописью."
         fetchingData={gettingTask1Data}
-        name="task1"
+        buttonText="Получить"
       >
         <FormInput
           defaultValue={0}
@@ -80,7 +68,7 @@ const MainLab1 = () => {
       <MainContentItem
         legend="Задание 2. Уравнение вида: a*x^2+b*x+c=0."
         fetchingData={gettingTask2Data}
-        name="task2"
+        buttonText="Получить"
       >
         <FormInput
           defaultValue={0}
@@ -104,7 +92,7 @@ const MainLab1 = () => {
       <MainContentItem
         legend="Задание 3. Вернуть день недели."
         fetchingData={gettingTask3Data}
-        name="task3"
+        buttonText="Получить"
       >
         <FormInput
           defaultValue=""
@@ -117,7 +105,7 @@ const MainLab1 = () => {
       <MainContentItem
         legend="Задание 4. Вернуть число Фибоначчи."
         fetchingData={gettingTask4Data}
-        name="task4"
+        buttonText="Получить"
       >
         <FormInput
           defaultValue={1}
@@ -130,7 +118,7 @@ const MainLab1 = () => {
       <MainContentItem
         legend="Задание 5. Вернуть название региона."
         fetchingData={gettingTask5Data}
-        name="task5"
+        buttonText="Получить"
       >
         <FormInput
           defaultValue={1}
@@ -139,7 +127,7 @@ const MainLab1 = () => {
           label="Введите номер региона:"
         />
       </MainContentItem>
-    </MainContent>
+    </>
   );
 };
 

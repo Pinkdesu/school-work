@@ -45,7 +45,7 @@ const Button = styled.button`
   text-align: center;
 `;
 
-const MainContentItem = ({ children, legend, fetchingData, name }) => {
+const MainContentItem = ({ children, legend, fetchingData, buttonText }) => {
   const [answerValue, setAnswerValue] = useState("");
   const { state } = useContext(ContextApp);
 
@@ -65,7 +65,7 @@ const MainContentItem = ({ children, legend, fetchingData, name }) => {
             <AnswerBox>Ответ: {answerValue}</AnswerBox>
           </InputsBox>
           <ButtonBox>
-            <Button>Получить</Button>
+            <Button>{buttonText}</Button>
           </ButtonBox>
         </FormContent>
       </FormFieldset>
