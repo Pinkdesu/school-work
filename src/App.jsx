@@ -30,6 +30,7 @@ const DefaultText = styled.p`
   color: #000;
   font-size: 25px;
   font-weight: bold;
+  text-align: center;
 `;
 
 const App = () => {

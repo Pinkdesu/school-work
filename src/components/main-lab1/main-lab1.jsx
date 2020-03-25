@@ -2,13 +2,14 @@ import React from "react";
 import MainContentItem from "../main-content-item/main-content-item.jsx";
 import FormInput from "../form-input/form-input.jsx";
 import axios from "axios";
+import { URL_LAB1 } from "../../constants";
 import styled from "styled-components";
 
 const MainLab1 = () => {
   const gettingTask1Data = ({ task1_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/number/${task1_number}`,
+      url: `${URL_LAB1}/number/${task1_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -17,7 +18,7 @@ const MainLab1 = () => {
   const gettingTask2Data = ({ task2_a, task2_b, task2_c }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/equation?a=${task2_a}&b=${task2_b}&c=${task2_c}`,
+      url: `${URL_LAB1}/equation?a=${task2_a}&b=${task2_b}&c=${task2_c}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -26,7 +27,7 @@ const MainLab1 = () => {
   const gettingTask3Data = ({ task3_date }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/day?date=${task3_date}`,
+      url: `${URL_LAB1}/day?date=${task3_date}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -35,7 +36,7 @@ const MainLab1 = () => {
   const gettingTask4Data = ({ task4_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/fib/${task4_number}`,
+      url: `${URL_LAB1}/fib/${task4_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)
@@ -44,7 +45,7 @@ const MainLab1 = () => {
   const gettingTask5Data = ({ task5_number }) =>
     axios({
       method: "get",
-      url: `http://localhost:9000/regions/${task5_number}`,
+      url: `${URL_LAB1}/regions/${task5_number}`,
       responseType: "text"
     })
       .then(responce => responce.data)

@@ -227,7 +227,7 @@ router.get("/day", function(request, response) {
 
 /* TASK 4 */
 
-router.get("/fib/:number", function(request, responce) {
+router.get("/fib/:number", function(request, response) {
   let n = request.params["number"];
   if (+n >= 0) {
     let a = 1;
@@ -239,21 +239,21 @@ router.get("/fib/:number", function(request, responce) {
       b = temp;
     }
 
-    responce.send(b.toString());
-  } else responce.send("отрицательное число");
+    response.send(b.toString());
+  } else response.send("отрицательное число");
 });
 
 /* TASK 5 */
 
-router.get("/regions/:region", function(request, responce) {
+router.get("/regions/:region", function(request, response) {
   let number = request.params["region"];
 
   for (let i = 0; i < REGIONS.length; i++) {
     if (REGIONS[i][0] === number) {
-      responce.send(REGIONS[i][1]);
+      response.send(REGIONS[i][1]);
     }
   }
-  responce.send("не могу найти");
+  response.send("не могу найти");
 });
 
 module.exports = router;
