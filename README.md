@@ -20,7 +20,7 @@
 ---
 Лаб 2
 * Роутер тут - /api/router/lab2.js
-* Запросы к серверу тут - /src/components/main-lab1/main-lab2.jsx
+* Запросы к серверу тут - /src/components/main-lab12main-lab2.jsx
 * СУБД - PostgreSQL
 * SQL builder - knex.js
 * Конфигурации для подключения к бд /api/database/index.js
