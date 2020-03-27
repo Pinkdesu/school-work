@@ -26,9 +26,65 @@ const Item = styled.div`
 const MainLab2 = () => {
   const { state } = useContext(ContextApp);
   const { dispatch } = useContext(ContextApp);
+
   const [clientId, setClientId] = useState(0);
   const [serviceId, setSetviceId] = useState([]);
-  console.dir(state);
+
+  const addClient = async () =>
+    await axios.post(`${URL_LAB2}/clients`, {
+      name: state["new-client-name"],
+      phone: state["new-client-phone"]
+    });
+
+  const getClients = async () => axios.get(`${URL_LAB2}/clients`);
+
+  const changeClient = async id =>
+    await axios.put(`${URL_LAB2}/clients/${id}`, {
+      name: state[`clients-table-name-${id}`],
+      phone: state[`clients-table-phone-${id}`]
+    });
+
+  const deleteClient = async id =>
+    await axios.delete(`${URL_LAB2}/clients/${id}`);
+
+  const addService = async () =>
+    await axios.post(`${URL_LAB2}/services`, {
+      name: state["new-service-name"],
+      price: state["new-service-price"]
+    });
+
+  const getServices = async () => await axios.get(`${URL_LAB2}/services`);
+
+  const changeService = async id =>
+    await axios.put(`${URL_LAB2}/services/${id}`, {
+      name: state[`services-table-name-${id}`],
+      price: state[`services-table-price-${id}`]
+    });
+
+  const deleteService = async id =>
+    await axios.delete(`${URL_LAB2}/services/${id}`);
+
+  const getApplications = async () =>
+    await axios.get(`${URL_LAB2}/applications`);
+
+  const addApplications = async () =>
+    await axios.post(`${URL_LAB2}/applications`, {
+      client_id: clientId,
+      services: serviceId
+    });
+
+  const handleApplicationClick = () => {
+    addApplications().catch(error => alert(error));
+  };
+
+  const handleClientClick = () => {
+    addClient().catch(error => alert(error));
+  };
+
+  const handleServiceClick = () => {
+    addService().catch(error => alert(error));
+  };
+
   const handleClientChange = ({ target: { value } }) => {
     setClientId(+value);
   };
@@ -36,12 +92,6 @@ const MainLab2 = () => {
   const handleServiceChange = ({ target: { value } }) => {
     setSetviceId(prevState => [...prevState, +value]);
   };
-
-  const getClients = async () => await axios.get(`${URL_LAB2}/clients`);
-
-  const getServices = async () => await axios.get(`${URL_LAB2}/services`);
-
-  const getApplications = async () => axios.get(`${URL_LAB2}/applications`);
 
   useEffect(() => {
     try {
@@ -98,7 +148,7 @@ const MainLab2 = () => {
             ))}
           </FormSelect>
         </Item>
-        <button>Создать</button>
+        <button onClick={handleApplicationClick}>Создать</button>
       </MainForm>
       <MainForm legend="Редактор заявок">
         <Table data={[]} />
@@ -111,15 +161,20 @@ const MainLab2 = () => {
           defaultValue=""
         />
         <FormInput
-          name="naw-service-price"
+          name="new-service-price"
           label="Стоимость услуги:"
           type="number"
           defaultValue={0}
         />
-        <button>Добавить</button>
+        <button onClick={handleServiceClick}>Добавить</button>
       </MainForm>
       <MainForm legend="Редактор услуг">
-        <Table name="service-table" data={state.services} />
+        <Table
+          name="services-table"
+          data={state.services}
+          changeData={changeService}
+          deleteData={deleteService}
+        />
       </MainForm>
       <MainForm legend="Добавить пользователя">
         <FormInput
@@ -129,15 +184,20 @@ const MainLab2 = () => {
           defaultValue=""
         />
         <FormInput
-          name="naw-client-phone"
+          name="new-client-phone"
           label="Контактный телефон:"
           type="text"
           defaultValue="89324888155"
         />
-        <button>Добавить</button>
+        <button onClick={handleClientClick}>Добавить</button>
       </MainForm>
       <MainForm legend="Редактор пользователей">
-        <Table name="clients-table" data={state.clients} />
+        <Table
+          name="clients-table"
+          data={state.clients}
+          changeData={changeClient}
+          deleteData={deleteClient}
+        />
       </MainForm>
     </>
   );

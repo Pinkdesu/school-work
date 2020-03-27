@@ -50,4 +50,4 @@ const FormInput = ({ defaultValue, label, name, type }) => {
   );
 };
 
-export default FormInput;
+export default React.memo(FormInput);

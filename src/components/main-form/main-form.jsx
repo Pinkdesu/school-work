@@ -26,9 +26,7 @@ const FormContent = styled.div`
 `;
 
 const MainForm = ({ children, legend }) => {
-  const handleSubmit = e => {
-    e.preventDefault();
-  };
+  const handleSubmit = e => {};
 
   return (
     <MainContentForm onSubmit={handleSubmit}>

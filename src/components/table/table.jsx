@@ -7,47 +7,45 @@ const TableWrapper = styled.table`
   border: 1px solid black;
 `;
 
-const Table = ({ name, data, deleteQuery, saveQuery }) => {
+const Table = ({ name, data, changeData, deleteData }) => {
   const handleDeleteClick = id => {
-    //deleteQuery(id);
+    deleteData(id).catch(error => alert(error));
   };
 
   const handleSaveClick = id => {
-    //saveQuery(id);
+    changeData(id).catch(error => alert(error));
   };
 
   return (
     <TableWrapper>
       <tbody>
-        {data.map((client, index) => (
-          <tr key={index}>
-            {Object.entries(client).map((entries, i) => {
-              if (i === 0) return <td key={entries[0]}>{entries[1]}</td>;
-              return (
-                <td key={entries[0]}>
-                  <FormInput
-                    name={`${name}-${entries[0]}-${index}`}
-                    defaultValue={entries[1]}
-                    label=""
-                    type="text"
-                  />
-                </td>
-              );
-            })}
-            <td>
-              <button
-                onClick={() => handleDeleteClick(Object.values(client)[0])}
-              >
-                Удалить
-              </button>
-            </td>
-            <td>
-              <button onClick={() => handleSaveClick(Object.values(client)[0])}>
-                Сохранить
-              </button>
-            </td>
-          </tr>
-        ))}
+        {data.map((item, index) => {
+          const id = item.id;
+
+          return (
+            <tr key={index}>
+              {Object.entries(item).map((entries, i) => {
+                if (i === 0) return <td key={entries[0]}>{entries[1]}</td>;
+                return (
+                  <td key={entries[0]}>
+                    <FormInput
+                      name={`${name}-${entries[0]}-${id}`}
+                      defaultValue={entries[1]}
+                      label=""
+                      type="text"
+                    />
+                  </td>
+                );
+              })}
+              <td>
+                <button onClick={() => handleDeleteClick(id)}>Удалить</button>
+              </td>
+              <td>
+                <button onClick={() => handleSaveClick(id)}>Сохранить</button>
+              </td>
+            </tr>
+          );
+        })}
       </tbody>
     </TableWrapper>
   );
