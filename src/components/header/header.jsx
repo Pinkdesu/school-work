@@ -12,7 +12,7 @@ const HeaderWrapper = styled.header`
   flex-flow: row nowrap;
   align-items: center;
   padding: 0px 40px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
 `;
 
 const LinkWrapper = styled(NavLink)`

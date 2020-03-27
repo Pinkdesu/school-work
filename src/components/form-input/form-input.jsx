@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ContextApp } from "../../reducers/reducer.jsx";
 import { SET_VALUE } from "../../constants.js";
 import styled from "styled-components";
@@ -22,6 +22,15 @@ const Input = styled.input.attrs(props => ({
 const FormInput = ({ defaultValue, label, name, type }) => {
   const [value, setValue] = useState(defaultValue);
   const { dispatch } = useContext(ContextApp);
+
+  useEffect(() => {
+    dispatch({
+      type: SET_VALUE,
+      payload: {
+        [name]: defaultValue
+      }
+    });
+  }, [dispatch]);
 
   const handleChange = ({ target: { value } }) => {
     setValue(value);

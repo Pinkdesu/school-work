@@ -10,7 +10,10 @@ export const initialState = {
   task2_c: "0",
   task3_date: "",
   task4_number: "1",
-  task5_number: "1"
+  task5_number: "1",
+  applications: [],
+  clients: [],
+  services: []
 };
 
 export const indexReducer = (state, { type, payload }) => {
