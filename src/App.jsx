@@ -14,18 +14,6 @@ const Main = styled.div`
   height: 100%;
 `;
 
-const MainContent = styled.main`
-  display: flex;
-  flex-flow: column nowrap;
-  width: 40%;
-  min-width: 500px;
-  padding: 40px 20px;
-  margin-top: 100px;
-  border-radius: 5px;
-  background-color: #fff;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-`;
-
 const DefaultText = styled.p`
   color: #000;
   font-size: 25px;
@@ -40,21 +28,19 @@ const App = () => {
     <ContextApp.Provider value={{ dispatch, state }}>
       <Header />
       <Main>
-        <MainContent>
-          <Switch>
-            <Route exact path="/">
-              <DefaultText>
-                Для просмотра заданий используйте навигацию
-              </DefaultText>
-            </Route>
-            <Route exact path="/lab1">
-              <MainLab1 />
-            </Route>
-            <Route exact path="/lab2">
-              <MainLab2 />
-            </Route>
-          </Switch>
-        </MainContent>
+        <Switch>
+          <Route exact path="/">
+            <DefaultText>
+              Для просмотра заданий используйте навигацию
+            </DefaultText>
+          </Route>
+          <Route exact path="/lab1">
+            <MainLab1 />
+          </Route>
+          <Route exact path="/lab2">
+            <MainLab2 />
+          </Route>
+        </Switch>
       </Main>
     </ContextApp.Provider>
   );

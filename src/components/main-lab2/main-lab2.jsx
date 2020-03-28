@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ContextApp } from "../../reducers/reducer.jsx";
@@ -6,14 +6,8 @@ import { SET_VALUE, URL_LAB2 } from "../../constants";
 import MainForm from "../main-form/main-form";
 import Table from "../table/table";
 import FormInput from "../form-input/form-input.jsx";
-
-const FormSelect = styled.select.attrs(props => ({
-  multiple: props.multiple
-}))`
-  width: 300px;
-  max-height: 150px;
-  overflow-y: auto;
-`;
+import FormSelect from "../form-select/form-select";
+import ApplicationsTable from "../applications-table/applications-table.jsx";
 
 const Item = styled.div`
   display: flex;
@@ -22,13 +16,20 @@ const Item = styled.div`
   width: 100%;
   margin-bottom: 15px;
 `;
+const MainContent = styled.main`
+  display: flex;
+  flex-flow: column nowrap;
+  width: 50%;
+  min-width: 800px;
+  padding: 40px 20px;
+  margin-top: 100px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+`;
 
 const MainLab2 = () => {
-  const { state } = useContext(ContextApp);
-  const { dispatch } = useContext(ContextApp);
-
-  const [clientId, setClientId] = useState(0);
-  const [serviceId, setSetviceId] = useState([]);
+  const { state, dispatch } = useContext(ContextApp);
 
   const addClient = async () =>
     await axios.post(`${URL_LAB2}/clients`, {
@@ -69,12 +70,14 @@ const MainLab2 = () => {
 
   const addApplications = async () =>
     await axios.post(`${URL_LAB2}/applications`, {
-      client_id: clientId,
-      services: serviceId
+      client_id: state["app-client"],
+      services: state["app-services"]
     });
 
   const handleApplicationClick = () => {
-    addApplications().catch(error => alert(error));
+    if (state["app-services"].length !== 0 && state["app-client"] !== 0) {
+      addApplications().catch(error => alert(error));
+    } else alert("Заполните все поля!");
   };
 
   const handleClientClick = () => {
@@ -85,16 +88,16 @@ const MainLab2 = () => {
     addService().catch(error => alert(error));
   };
 
-  const handleClientChange = ({ target: { value } }) => {
-    setClientId(+value);
-  };
-
-  const handleServiceChange = ({ target: { value } }) => {
-    setSetviceId(prevState => [...prevState, +value]);
-  };
-
   useEffect(() => {
     try {
+      getApplications().then(applications =>
+        dispatch({
+          type: SET_VALUE,
+          payload: {
+            applications: applications.data
+          }
+        })
+      );
       getClients().then(clients =>
         dispatch({
           type: SET_VALUE,
@@ -117,41 +120,35 @@ const MainLab2 = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <MainContent>
       <MainForm legend="Создать заявку">
         <Item>
           <label>Выбирите клиента:</label>
           <FormSelect
-            value={clientId}
+            data={state.clients}
             multiple={false}
-            onChange={handleClientChange}
-          >
-            <option value={0}></option>
-            {state.clients.map(client => (
-              <option key={client.id} value={client.id}>
-                {client.name}
-              </option>
-            ))}
-          </FormSelect>
+            defaultValue={1}
+            name="app-client"
+          />
         </Item>
         <Item>
           <label>Выбирите услуги:</label>
           <FormSelect
-            value={serviceId}
+            data={state.services}
+            defaultValue={[]}
             multiple={true}
-            onChange={handleServiceChange}
-          >
-            {state.services.map(service => (
-              <option key={service.id} value={service.id}>
-                {`${service.name} - ${service.price}руб.`}
-              </option>
-            ))}
-          </FormSelect>
+            name="app-services"
+          />
         </Item>
         <button onClick={handleApplicationClick}>Создать</button>
       </MainForm>
       <MainForm legend="Редактор заявок">
-        <Table data={[]} />
+        <ApplicationsTable
+          data={state.applications}
+          name="app-table"
+          changeData={() => {}}
+          deleteData={() => {}}
+        />
       </MainForm>
       <MainForm legend="Добавить услугу">
         <FormInput
@@ -199,7 +196,7 @@ const MainLab2 = () => {
           deleteData={deleteClient}
         />
       </MainForm>
-    </>
+    </MainContent>
   );
 };
 

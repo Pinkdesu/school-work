@@ -2,22 +2,6 @@ const express = require("express");
 const db = require("../database/index");
 const router = express.Router();
 
-// router.get("/applications", function(request, response) {
-//   response.send(days[dayNumber]);
-//   let n = request.params["number"];
-//   let data = {};
-//   try {
-//     let applications = db({ a: "application", c: "client" })
-//       .select("a.id", "a.date", "c.id", "c.name")
-//       .where("a.client_id" "=", "c.id")
-//       .then(data => data);
-
-//     console.dir(applications);
-//   } catch (error) {
-//     response.send(error);
-//   }
-// });
-
 router.post("/services", function(request, response) {
   const data = request.body;
 
@@ -96,13 +80,50 @@ router.post("/applications", function(request, response) {
     .insert({ client_id: data.client_id, date: date })
     .then(() => {
       db("application")
-        .max({ id: "id" })
+        .max({ id: "application.id" })
         .then(row => {
           const values = data.services.map(service => ({
             id_application: row[0].id,
             id_service: service
           }));
+          console.log(services);
           db("application").insert(values);
+        });
+    })
+    .catch(error => response.send(error));
+});
+
+router.get("/applications", function(request, response) {
+  db({
+    clt: "client",
+    app: "application"
+  })
+    .select({
+      id: "app.id",
+      date: "app.date",
+      clientId: "clt.id"
+    })
+    .where("app.client_id", "=", db.ref("clt.id"))
+    .orderBy("app.id")
+    .then(applications => {
+      db({ srv: "service", sfa: "services_for_application" })
+        .select({
+          applicationId: "sfa.id_application",
+          serviceId: "srv.id"
+        })
+        .where("sfa.id_service", "=", db.ref("srv.id"))
+        .orderBy("sfa.id_application")
+        .then(result => {
+          const data = applications.map(application => {
+            const services = [];
+            for (let i = 0; i < result.length; i++) {
+              if (result[i].applicationId === application.id) {
+                services.push(result[i].serviceId);
+              }
+            }
+            return { ...application, services };
+          });
+          response.send(data);
         });
     })
     .catch(error => response.send(error));

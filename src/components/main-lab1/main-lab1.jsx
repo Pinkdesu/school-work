@@ -5,6 +5,18 @@ import axios from "axios";
 import { URL_LAB1 } from "../../constants";
 import styled from "styled-components";
 
+const MainContent = styled.main`
+  display: flex;
+  flex-flow: column nowrap;
+  width: 40%;
+  min-width: 500px;
+  padding: 40px 20px;
+  margin-top: 100px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+`;
+
 const MainLab1 = () => {
   const gettingTask1Data = ({ task1_number }) =>
     axios({
@@ -52,7 +64,7 @@ const MainLab1 = () => {
       .catch(error => alert(error));
 
   return (
-    <>
+    <MainContent>
       <MainContentItem
         legend="Задание 1. Вернуть число прописью."
         fetchingData={gettingTask1Data}
@@ -128,7 +140,7 @@ const MainLab1 = () => {
           label="Введите номер региона:"
         />
       </MainContentItem>
-    </>
+    </MainContent>
   );
 };
 
