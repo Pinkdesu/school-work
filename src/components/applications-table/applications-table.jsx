@@ -41,7 +41,7 @@ const ApplicationsTable = ({ name, data, changeData, deleteData }) => {
                 <FormSelect
                   data={state.clients}
                   defaultValue={item.clientId}
-                  name={`${name}-clientId-${id}`}
+                  name={`${name}-client-${id}`}
                   multiple={false}
                 />
               </td>

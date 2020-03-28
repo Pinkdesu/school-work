@@ -74,6 +74,16 @@ const MainLab2 = () => {
       services: state["app-services"]
     });
 
+  const changeApplication = async id =>
+    await axios.put(`${URL_LAB2}/applications/${id}`, {
+      clientId: state[`app-table-client-${id}`],
+      date: state[`app-table-date-${id}`],
+      services: state[`app-table-services-${id}`]
+    });
+
+  const deleteApplication = async id =>
+    await axios.delete(`${URL_LAB2}/applications/${id}`);
+
   const handleApplicationClick = () => {
     if (state["app-services"].length !== 0 && state["app-client"] !== 0) {
       addApplications().catch(error => alert(error));
@@ -146,8 +156,8 @@ const MainLab2 = () => {
         <ApplicationsTable
           data={state.applications}
           name="app-table"
-          changeData={() => {}}
-          deleteData={() => {}}
+          changeData={changeApplication}
+          deleteData={deleteApplication}
         />
       </MainForm>
       <MainForm legend="Добавить услугу">

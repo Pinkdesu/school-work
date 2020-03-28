@@ -83,11 +83,13 @@ router.post("/applications", function(request, response) {
         .max({ id: "application.id" })
         .then(row => {
           const values = data.services.map(service => ({
-            id_application: row[0].id,
-            id_service: service
+            id_application: +row[0].id,
+            id_service: +service
           }));
-          console.log(services);
-          db("application").insert(values);
+
+          db("services_for_application")
+            .insert(values)
+            .catch(error => response.send(error));
         });
     })
     .catch(error => response.send(error));
@@ -126,6 +128,45 @@ router.get("/applications", function(request, response) {
           response.send(data);
         });
     })
+    .catch(error => response.send(error));
+});
+
+router.put("/applications/:id", function(request, response) {
+  const applicationId = request.params["id"];
+  const data = request.body;
+
+  db("application")
+    .where("id", "=", applicationId)
+    .update({ date: data.date, client_id: data.clientId })
+    .catch(error => response.send(error));
+
+  db("services_for_application")
+    .where("id_application", "=", applicationId)
+    .del()
+    .then(() => {
+      const values = data.services.map(service => ({
+        id_application: +applicationId,
+        id_service: +service
+      }));
+
+      db("services_for_application")
+        .insert(values)
+        .catch(error => response.send(error));
+    })
+    .catch(error => response.send(error));
+});
+
+router.delete("/applications/:id", function(request, response) {
+  const applicationId = request.params["id"];
+
+  db("application")
+    .where("id", "=", +applicationId)
+    .del()
+    .catch(error => response.send(error));
+
+  db("services_for_application")
+    .where("id_application", "=", +applicationId)
+    .del()
     .catch(error => response.send(error));
 });
 
