@@ -20,6 +20,7 @@ const DefaultText = styled.p`
   font-size: 25px;
   font-weight: bold;
   text-align: center;
+  margin-top: 200px;
 `;
 
 const App = () => {
@@ -43,6 +44,10 @@ const App = () => {
           </Route>
           <Route path="/lab4">
             <MainLab4 />
+          </Route>
+
+          <Route path="*">
+            <DefaultText>Страница не найдена</DefaultText>
           </Route>
         </Switch>
       </Main>
