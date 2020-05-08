@@ -1,11 +1,13 @@
 const createError = require("http-errors");
 const express = require("express");
+const soap = require("soap");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const lab1Router = require("./routes/lab1");
 const lab2Router = require("./routes/lab2");
+const lab4Router = require("./routes/lab4");
 const app = express();
 
 // view engine setup
@@ -21,14 +23,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/lab1", lab1Router);
 app.use("/lab2", lab2Router);
+app.use("/lab4", lab4Router);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};

@@ -26,6 +26,7 @@ const Header = () => {
     <HeaderWrapper>
       <LinkWrapper to="/lab1">Лаба 1</LinkWrapper>
       <LinkWrapper to="/lab2">Лаба 2</LinkWrapper>
+      <LinkWrapper to="/lab4">Лаба 4</LinkWrapper>
     </HeaderWrapper>
   );
 };

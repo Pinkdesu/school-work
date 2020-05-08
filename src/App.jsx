@@ -4,6 +4,7 @@ import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import { ContextApp, initialState, indexReducer } from "./reducers/reducer.jsx";
 import MainLab2 from "./components/main-lab2/main-lab2.jsx";
 import MainLab1 from "./components/main-lab1/main-lab1.jsx";
+import MainLab4 from "./components/main-lab4/main-lab4.jsx";
 import styled from "styled-components";
 
 const Main = styled.div`
@@ -34,11 +35,14 @@ const App = () => {
               Для просмотра заданий используйте навигацию
             </DefaultText>
           </Route>
-          <Route exact path="/lab1">
+          <Route path="/lab1">
             <MainLab1 />
           </Route>
-          <Route exact path="/lab2">
+          <Route path="/lab2">
             <MainLab2 />
+          </Route>
+          <Route path="/lab4">
+            <MainLab4 />
           </Route>
         </Switch>
       </Main>
