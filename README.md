@@ -2,7 +2,7 @@
 
 ---
 
-В проекте: лаба 1, лаба 2
+В проекте: лаба 1, лаба 2, лаба 4
 
 ---
 Общее:
@@ -25,3 +25,7 @@
 * SQL builder - knex.js
 * Конфигурации для подключения к бд тут - /api/database/index.js
 * SQL-запросы для создания бд тут - /api/database/lab2_sql.sql
+---
+Лаб 4
+* Роутер тут - /api/router/lab4.js
+* Запросы к серверу тут - /src/components/main-lab4/main-lab4.jsx
