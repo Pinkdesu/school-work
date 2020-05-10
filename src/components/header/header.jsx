@@ -24,9 +24,12 @@ const LinkWrapper = styled(NavLink)`
 const Header = () => {
   return (
     <HeaderWrapper>
-      <LinkWrapper to="/lab1">Лаба 1</LinkWrapper>
+      <LinkWrapper exact to="/lab1">
+        Лаба 1
+      </LinkWrapper>
       <LinkWrapper to="/lab2">Лаба 2</LinkWrapper>
       <LinkWrapper to="/lab4">Лаба 4</LinkWrapper>
+      <LinkWrapper to="/lab6">Лаба 6</LinkWrapper>
     </HeaderWrapper>
   );
 };

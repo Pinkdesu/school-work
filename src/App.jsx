@@ -1,10 +1,11 @@
 import React, { useReducer } from "react";
 import Header from "./components/header/header.jsx";
-import { Switch, Route, Redirect, useLocation } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { ContextApp, initialState, indexReducer } from "./reducers/reducer.jsx";
 import MainLab2 from "./components/main-lab2/main-lab2.jsx";
 import MainLab1 from "./components/main-lab1/main-lab1.jsx";
 import MainLab4 from "./components/main-lab4/main-lab4.jsx";
+import MainLab6 from "./components/main-lab6/main-lab6";
 import styled from "styled-components";
 
 const Main = styled.div`
@@ -46,6 +47,9 @@ const App = () => {
             <MainLab4 />
           </Route>
 
+          <Route path="/lab6">
+            <MainLab6 />
+          </Route>
           <Route path="*">
             <DefaultText>Страница не найдена</DefaultText>
           </Route>
