@@ -33,7 +33,7 @@ const MainLab4 = () => {
       )
       .catch((error) => alert(error));
   };
-  console.log(state["server_responce"]);
+
   return (
     <MainContent>
       <label>Ответ: {state["server_responce"].result}</label>

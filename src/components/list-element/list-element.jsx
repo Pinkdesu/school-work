@@ -14,9 +14,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ListElement = () => {
+  const [isDeployed, setDeployed] = useState(false);
   const classes = useStyles();
-
-  const [isDeployed, setDeployed] = useState(true);
 
   const handleClick = () => {
     setDeployed(!isDeployed);

@@ -15,6 +15,7 @@ export const initialState = {
   applications: [],
   clients: [],
   services: [],
+  text: {},
 };
 
 export const indexReducer = (state, { type, payload }) => {
