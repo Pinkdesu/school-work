@@ -1,5 +1,6 @@
 const express = require("express");
-const db = require("../database/index");
+const { knex } = require("../database/index");
+const db = knex;
 const router = express.Router();
 
 router.post("/services", function (request, response) {

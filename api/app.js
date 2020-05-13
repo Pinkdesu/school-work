@@ -1,6 +1,5 @@
 const createError = require("http-errors");
 const express = require("express");
-const soap = require("soap");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
@@ -8,6 +7,7 @@ const cors = require("cors");
 const lab1Router = require("./routes/lab1");
 const lab2Router = require("./routes/lab2");
 const lab4Router = require("./routes/lab4");
+const lab6Router = require("./routes/lab6");
 const app = express();
 
 // view engine setup
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/lab1", lab1Router);
 app.use("/lab2", lab2Router);
 app.use("/lab4", lab4Router);
+app.use("/lab6", lab6Router);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

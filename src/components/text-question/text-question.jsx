@@ -14,7 +14,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-//#69f0ae
+
 const useStyles = makeStyles((theme) => ({
   listItem: ({ isDone }) => ({
     display: "flex",
@@ -136,8 +136,6 @@ const TextQuestion = ({ id }) => {
         }
       >
         {answers.map((value, index) => {
-          const labelId = `checkbox-list-label-${value}`;
-
           return (
             <ListItem key={index}>
               <ListItemIcon className={classes.nestedIcon}>
