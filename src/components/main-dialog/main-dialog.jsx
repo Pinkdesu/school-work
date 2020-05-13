@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ContextApp } from "../../reducers/reducer.jsx";
-import { SET_VALUE } from "../../constants";
+import { CHANGE_TEXT_NAME } from "../../constants";
 import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import Dialog from "@material-ui/core/Dialog";
@@ -12,6 +12,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import TextField from "@material-ui/core/TextField";
 import TextQuestion from "../text-question/text-question";
+import AlertDialog from "../alert-dialog/alert-dialog";
 
 const useStyles = makeStyles((theme) => ({
   questionsList: {
@@ -23,14 +24,32 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
-  const [textName, setTextName] = useState("");
+  const { dispatch, state } = useContext(ContextApp);
   const [questions, setQuestion] = useState([]);
-  const { dispatch } = useContext(ContextApp);
-  const isButtonDisabled = textName.replace(/\s/g, "").length === 0;
+  const [isAlertDeployed, setAlertDeployed] = useState(false);
+  const isNameEmpty = state.text.name.replace(/\s/g, "").length === 0;
   const classes = useStyles();
+  console.log(state.text);
+  const handleTextSave = () => {
+    setDialogDeployed(false);
+  };
+
+  const toggleDialogClose = () => {
+    if (isNameEmpty) {
+      setDialogDeployed(true);
+    } else {
+      setAlertDeployed(true);
+    }
+  };
 
   const handleTextNameChange = (e) => {
-    setTextName(e.target.value);
+    const value = e.target.value;
+    dispatch({
+      type: CHANGE_TEXT_NAME,
+      payload: {
+        name: value,
+      },
+    });
   };
 
   const handleAddingQuestionClick = () => {
@@ -49,7 +68,7 @@ const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
     <div>
       <Dialog
         open={isDialogDeployed}
-        onClose={setDialogDeployed}
+        onClose={toggleDialogClose}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Добавить новый текст</DialogTitle>
@@ -62,7 +81,7 @@ const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
             label="Название текста"
             type="text"
             fullWidth
-            value={textName}
+            value={state.text.name}
             onChange={handleTextNameChange}
           />
 
@@ -84,21 +103,32 @@ const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
               color="primary"
               startIcon={<AddCircleOutlineIcon />}
               onClick={handleAddingQuestionClick}
-              disabled={isButtonDisabled}
+              disabled={isNameEmpty}
             >
               Добавить вопрос
             </Button>
           </div>
         </DialogContent>
         <DialogActions>
-          <Button onClick={setDialogDeployed} color="primary">
-            Cancel
+          <Button onClick={toggleDialogClose} color="primary">
+            Выйти
           </Button>
-          <Button onClick={setDialogDeployed} color="primary">
-            Subscribe
+          <Button
+            onClick={handleTextSave}
+            color="primary"
+            disabled={isNameEmpty}
+          >
+            Сохранить
           </Button>
         </DialogActions>
       </Dialog>
+
+      <AlertDialog
+        isAlertDeployed={isAlertDeployed}
+        setAlertDeployed={setAlertDeployed}
+        setDialogDeployed={setDialogDeployed}
+        handleTextSave={handleTextSave}
+      />
     </div>
   );
 };

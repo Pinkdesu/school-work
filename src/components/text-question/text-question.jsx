@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { ContextApp } from "../../reducers/reducer.jsx";
+import { ADD_NEW_QUESTION } from "../../constants";
 import TextField from "@material-ui/core/TextField";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,21 +14,25 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Checkbox from "@material-ui/core/Checkbox";
 import IconButton from "@material-ui/core/IconButton";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-
+//#69f0ae
 const useStyles = makeStyles((theme) => ({
-  listItem: {
+  listItem: ({ isDone }) => ({
     display: "flex",
     flexFlow: "column nowrap",
     alignItems: "flex-start",
     border: "1px solid rgba(0, 0, 0, 0.12)",
     marginBottom: theme.spacing(2),
-  },
+    backgroundColor: isDone ? "#eeeeee" : "#fff",
+  }),
   buttonWrapper: {
     display: "flex",
     flexFlow: "row nowrap",
     justifyContent: "flex-end",
     alignItems: "center",
     marginTop: theme.spacing(3),
+  },
+  doneButton: {
+    width: 136,
   },
   input: {
     marginBottom: theme.spacing(2),
@@ -52,31 +58,44 @@ const TextQuestion = ({ id }) => {
       isCorrect: false,
     },
   ]);
-
-  const classes = useStyles();
+  const { dispatch } = useContext(ContextApp);
+  const classes = useStyles({ isDone });
 
   const handleDoneClick = () => {
-    setDone(true);
+    if (!isDone) {
+      setDone(true);
+      dispatch({
+        type: ADD_NEW_QUESTION,
+        payload: {
+          text: questionText,
+          answers: answers,
+        },
+      });
+    }
   };
 
   const handleAnswerCheckClick = (index) => () => {
-    setAnswer((prev) => {
-      const newState = [...prev];
-      newState[index].isCorrect = !newState[index].isCorrect;
-      return newState;
-    });
+    if (!isDone) {
+      setAnswer((prev) => {
+        const newState = [...prev];
+        newState[index].isCorrect = !newState[index].isCorrect;
+        return newState;
+      });
+    }
   };
 
   const handleAnswerDeleteClick = (index) => () => {
-    setAnswer((prev) => {
-      const newState = [...prev];
-      if (prev.length !== 1) newState.splice(index, 1);
-      return newState;
-    });
+    if (!isDone) {
+      setAnswer((prev) => {
+        const newState = [...prev];
+        if (prev.length !== 1) newState.splice(index, 1);
+        return newState;
+      });
+    }
   };
 
   const handleQuestionTextChange = (e) => {
-    setQuestionText(e.target.value);
+    if (!isDone) setQuestionText(e.target.value);
   };
 
   const handleAnswerTextChange = (e, index) => {
@@ -107,6 +126,8 @@ const TextQuestion = ({ id }) => {
         value={questionText}
         onChange={handleQuestionTextChange}
         className={classes.input}
+        disabled={isDone}
+        autoFocus
       />
       <List
         className={classes.nestedList}
@@ -126,6 +147,7 @@ const TextQuestion = ({ id }) => {
                   tabIndex={-1}
                   disableRipple
                   onClick={handleAnswerCheckClick(index)}
+                  disabled={isDone}
                 />
               </ListItemIcon>
 
@@ -135,6 +157,7 @@ const TextQuestion = ({ id }) => {
                 value={value.text}
                 onChange={(e) => handleAnswerTextChange(e, index)}
                 fullWidth
+                disabled={isDone}
               />
 
               <ListItemSecondaryAction>
@@ -142,6 +165,7 @@ const TextQuestion = ({ id }) => {
                   edge="end"
                   aria-label="delete"
                   onClick={handleAnswerDeleteClick(index)}
+                  disabled={isDone}
                 >
                   <HighlightOffIcon />
                 </IconButton>
@@ -155,6 +179,8 @@ const TextQuestion = ({ id }) => {
             startIcon={isDone ? <DoneAllIcon /> : <DoneIcon />}
             color="default"
             onClick={handleDoneClick}
+            className={classes.doneButton}
+            disabled={isDone}
           >
             {isDone ? "Сохранено" : "Готово"}
           </Button>

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ContextApp } from "../../reducers/reducer.jsx";
 import { SET_VALUE } from "../../constants";
+import axios from "axios";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListElement from "../list-element/list-element";
@@ -77,10 +78,12 @@ const MainLab6 = () => {
           </Button>
         </div>
       </div>
-      <MainDialog
-        isDialogDeployed={isDialogDeployed}
-        setDialogDeployed={handleAddButtonClick}
-      />
+      {isDialogDeployed ? (
+        <MainDialog
+          isDialogDeployed={isDialogDeployed}
+          setDialogDeployed={handleAddButtonClick}
+        />
+      ) : null}
     </>
   );
 };

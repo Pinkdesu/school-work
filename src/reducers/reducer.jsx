@@ -25,6 +25,16 @@ export const indexReducer = (state, { type, payload }) => {
         ...state,
         ...payload,
       };
+    case types.ADD_NEW_QUESTION: {
+      const newText = { ...state.text };
+      newText.questions.push({ ...payload });
+      return { ...state, text: newText };
+    }
+    case types.CHANGE_TEXT_NAME: {
+      const newText = { ...state.text };
+      newText.name = payload.name;
+      return { ...state, text: newText };
+    }
     default:
       return state;
   }
