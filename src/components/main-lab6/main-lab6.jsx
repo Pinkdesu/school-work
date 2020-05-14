@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ContextApp } from "../../reducers/reducer.jsx";
-import { SET_VALUE } from "../../constants";
+import { SET_VALUE, URL_LAB6 } from "../../constants";
 import axios from "axios";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
@@ -35,9 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const getTexts = async () => axios.get(`${URL_LAB6}/texts`);
+
 const MainLab6 = () => {
-  const { dispatch } = useContext(ContextApp);
+  const { state, dispatch } = useContext(ContextApp);
   const [isDialogDeployed, setDialogDeployed] = useState(false);
+  const classes = useStyles();
 
   const handleAddButtonClick = () => {
     dispatch({
@@ -52,7 +55,20 @@ const MainLab6 = () => {
     setDialogDeployed(!isDialogDeployed);
   };
 
-  const classes = useStyles();
+  useEffect(() => {
+    if (!isDialogDeployed)
+      getTexts()
+        .then((response) =>
+          dispatch({
+            type: SET_VALUE,
+            payload: {
+              texts: response.data,
+            },
+          })
+        )
+        .catch((error) => alert(error));
+  }, [isDialogDeployed]);
+
   return (
     <>
       <div className={classes.mainWrapper}>
@@ -63,7 +79,14 @@ const MainLab6 = () => {
             <ListSubheader component="div">Текст и вопросы</ListSubheader>
           }
         >
-          <ListElement divider />
+          {state.texts.map((text, index) => (
+            <ListElement
+              key={index}
+              index={index}
+              name={text.name}
+              questions={text.questions}
+            />
+          ))}
         </List>
 
         <div className={classes.footerButtonWrapper}>

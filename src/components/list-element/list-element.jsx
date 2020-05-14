@@ -6,14 +6,18 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
+import ListSubheader from "@material-ui/core/ListSubheader";
 
 const useStyles = makeStyles((theme) => ({
   nested: {
+    display: "flex",
+    flexFlow: "column nowrap",
+    alignItems: "flex-start",
     paddingLeft: theme.spacing(4),
   },
 }));
 
-const ListElement = () => {
+const ListElement = ({ index, name, questions }) => {
   const [isDeployed, setDeployed] = useState(false);
   const classes = useStyles();
 
@@ -23,15 +27,52 @@ const ListElement = () => {
 
   return (
     <>
-      <ListItem button onClick={handleClick}>
-        <ListItemText primary="Text1" />
+      <ListItem button onClick={handleClick} divider>
+        <ListItemText primary={`${index + 1}. ${name}`} />
         {isDeployed ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={isDeployed} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemText primary="Starred" />
-          </ListItem>
+        <List
+          disablePadding
+          subheader={
+            <ListSubheader component="div">Вопросы к тексту</ListSubheader>
+          }
+        >
+          {questions.length !== 0
+            ? questions.map(({ questionId, questionValue, answers }, index) => (
+                <ListItem
+                  className={classes.nested}
+                  key={`question${questionId}`}
+                >
+                  <ListItemText primary={`${index + 1}. ${questionValue}`} />
+                  <List
+                    disablePadding
+                    subheader={
+                      <ListSubheader component="div">
+                        Варианты ответов:
+                      </ListSubheader>
+                    }
+                  >
+                    {answers.length !== 0
+                      ? answers.map(
+                          ({ answerId, answerValue, isCorrect }, index) => (
+                            <ListItem
+                              key={`answer${answerId}`}
+                              className={classes.nested}
+                            >
+                              <ListItemText
+                                primary={`${index + 1}. ${
+                                  isCorrect ? "Верный:" : "Неверный:"
+                                } ${answerValue}`}
+                              />
+                            </ListItem>
+                          )
+                        )
+                      : null}
+                  </List>
+                </ListItem>
+              ))
+            : null}
         </List>
       </Collapse>
     </>

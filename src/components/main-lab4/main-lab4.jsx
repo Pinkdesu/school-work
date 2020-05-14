@@ -15,11 +15,10 @@ const MainContent = styled.main`
   background-color: #fff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 `;
+const getResponce = async () => axios.get(`${URL_LAB4}/responce`);
 
 const MainLab4 = () => {
   const { state, dispatch } = useContext(ContextApp);
-
-  const getResponce = async () => axios.get(`${URL_LAB4}/responce`);
 
   const handleClick = () => {
     getResponce()

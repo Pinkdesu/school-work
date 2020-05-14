@@ -15,6 +15,7 @@ export const initialState = {
   applications: [],
   clients: [],
   services: [],
+  texts: [],
   text: {},
 };
 
