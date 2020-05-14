@@ -61,9 +61,9 @@ const ListElement = ({ index, name, questions }) => {
                               className={classes.nested}
                             >
                               <ListItemText
-                                primary={`${index + 1}. ${
-                                  isCorrect ? "Верный:" : "Неверный:"
-                                } ${answerValue}`}
+                                primary={`${index + 1}. ${answerValue} (${
+                                  isCorrect ? "верный" : "неверный"
+                                })`}
                               />
                             </ListItem>
                           )

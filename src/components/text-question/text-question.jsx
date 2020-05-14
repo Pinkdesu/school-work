@@ -64,11 +64,16 @@ const TextQuestion = ({ id }) => {
   const handleDoneClick = () => {
     if (!isDone) {
       setDone(true);
+
+      const notEmptyAnswers = answers.filter(
+        (answer) => answer.text.replace(/\s/g, "").length !== 0
+      );
+
       dispatch({
         type: ADD_NEW_QUESTION,
         payload: {
           text: questionText,
-          answers: answers,
+          answers: notEmptyAnswers,
         },
       });
     }

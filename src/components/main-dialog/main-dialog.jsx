@@ -23,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
+const MainDialog = ({ isDialogDeployed, setDialogDeployed, addText }) => {
   const { dispatch, state } = useContext(ContextApp);
   const [questions, setQuestion] = useState([]);
   const [isAlertDeployed, setAlertDeployed] = useState(false);
   const isNameEmpty = state.text.name.replace(/\s/g, "").length === 0;
   const classes = useStyles();
-  console.log(state.text);
+
   const handleTextSave = () => {
     setDialogDeployed(false);
+    addText(state.text);
   };
 
   const toggleDialogClose = () => {
@@ -87,7 +88,6 @@ const MainDialog = ({ isDialogDeployed, setDialogDeployed }) => {
 
           {questions.length === 0 ? null : (
             <List
-              component="div"
               aria-labelledby="questions list"
               className={classes.questionsList}
             >

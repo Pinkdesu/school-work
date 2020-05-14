@@ -34,35 +34,35 @@ const MainLab2 = () => {
   const addClient = async () =>
     await axios.post(`${URL_LAB2}/clients`, {
       name: state["new-client-name"],
-      phone: state["new-client-phone"]
+      phone: state["new-client-phone"],
     });
 
-  const getClients = async () => axios.get(`${URL_LAB2}/clients`);
+  const getClients = async () => await axios.get(`${URL_LAB2}/clients`);
 
-  const changeClient = async id =>
+  const changeClient = async (id) =>
     await axios.put(`${URL_LAB2}/clients/${id}`, {
       name: state[`clients-table-name-${id}`],
-      phone: state[`clients-table-phone-${id}`]
+      phone: state[`clients-table-phone-${id}`],
     });
 
-  const deleteClient = async id =>
+  const deleteClient = async (id) =>
     await axios.delete(`${URL_LAB2}/clients/${id}`);
 
   const addService = async () =>
     await axios.post(`${URL_LAB2}/services`, {
       name: state["new-service-name"],
-      price: state["new-service-price"]
+      price: state["new-service-price"],
     });
 
   const getServices = async () => await axios.get(`${URL_LAB2}/services`);
 
-  const changeService = async id =>
+  const changeService = async (id) =>
     await axios.put(`${URL_LAB2}/services/${id}`, {
       name: state[`services-table-name-${id}`],
-      price: state[`services-table-price-${id}`]
+      price: state[`services-table-price-${id}`],
     });
 
-  const deleteService = async id =>
+  const deleteService = async (id) =>
     await axios.delete(`${URL_LAB2}/services/${id}`);
 
   const getApplications = async () =>
@@ -71,57 +71,57 @@ const MainLab2 = () => {
   const addApplications = async () =>
     await axios.post(`${URL_LAB2}/applications`, {
       client_id: state["app-client"],
-      services: state["app-services"]
+      services: state["app-services"],
     });
 
-  const changeApplication = async id =>
+  const changeApplication = async (id) =>
     await axios.put(`${URL_LAB2}/applications/${id}`, {
       clientId: state[`app-table-client-${id}`],
       date: state[`app-table-date-${id}`],
-      services: state[`app-table-services-${id}`]
+      services: state[`app-table-services-${id}`],
     });
 
-  const deleteApplication = async id =>
+  const deleteApplication = async (id) =>
     await axios.delete(`${URL_LAB2}/applications/${id}`);
 
   const handleApplicationClick = () => {
     if (state["app-services"].length !== 0 && state["app-client"] !== 0) {
-      addApplications().catch(error => alert(error));
+      addApplications().catch((error) => alert(error));
     } else alert("Заполните все поля!");
   };
 
   const handleClientClick = () => {
-    addClient().catch(error => alert(error));
+    addClient().catch((error) => alert(error));
   };
 
   const handleServiceClick = () => {
-    addService().catch(error => alert(error));
+    addService().catch((error) => alert(error));
   };
 
   useEffect(() => {
     try {
-      getApplications().then(applications =>
+      getApplications().then((applications) =>
         dispatch({
           type: SET_VALUE,
           payload: {
-            applications: applications.data
-          }
+            applications: applications.data,
+          },
         })
       );
-      getClients().then(clients =>
+      getClients().then((clients) =>
         dispatch({
           type: SET_VALUE,
           payload: {
-            clients: clients.data
-          }
+            clients: clients.data,
+          },
         })
       );
-      getServices().then(services =>
+      getServices().then((services) =>
         dispatch({
           type: SET_VALUE,
           payload: {
-            services: services.data
-          }
+            services: services.data,
+          },
         })
       );
     } catch (error) {

@@ -35,7 +35,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getTexts = async () => axios.get(`${URL_LAB6}/texts`);
+const getTexts = async () => await axios.get(`${URL_LAB6}/texts`);
+
+const addText = async (text) =>
+  await axios.post(`${URL_LAB6}/texts`, { ...text });
 
 const MainLab6 = () => {
   const { state, dispatch } = useContext(ContextApp);
@@ -56,18 +59,17 @@ const MainLab6 = () => {
   };
 
   useEffect(() => {
-    if (!isDialogDeployed)
-      getTexts()
-        .then((response) =>
-          dispatch({
-            type: SET_VALUE,
-            payload: {
-              texts: response.data,
-            },
-          })
-        )
-        .catch((error) => alert(error));
-  }, [isDialogDeployed]);
+    getTexts()
+      .then((response) =>
+        dispatch({
+          type: SET_VALUE,
+          payload: {
+            texts: response.data,
+          },
+        })
+      )
+      .catch((error) => alert(error));
+  }, []);
 
   return (
     <>
@@ -105,6 +107,7 @@ const MainLab6 = () => {
         <MainDialog
           isDialogDeployed={isDialogDeployed}
           setDialogDeployed={handleAddButtonClick}
+          addText={addText}
         />
       ) : null}
     </>
