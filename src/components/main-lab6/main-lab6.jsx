@@ -59,17 +59,18 @@ const MainLab6 = () => {
   };
 
   useEffect(() => {
-    getTexts()
-      .then((response) =>
-        dispatch({
-          type: SET_VALUE,
-          payload: {
-            texts: response.data,
-          },
-        })
-      )
-      .catch((error) => alert(error));
-  }, []);
+    if (!isDialogDeployed)
+      getTexts()
+        .then((response) =>
+          dispatch({
+            type: SET_VALUE,
+            payload: {
+              texts: response.data,
+            },
+          })
+        )
+        .catch((error) => alert(error));
+  }, [isDialogDeployed]);
 
   return (
     <>
@@ -78,7 +79,7 @@ const MainLab6 = () => {
           component="div"
           aria-labelledby="text list"
           subheader={
-            <ListSubheader component="div">Текст и вопросы</ListSubheader>
+            <ListSubheader disableSticky>Текст и вопросы</ListSubheader>
           }
         >
           {state.texts.map((text, index) => (

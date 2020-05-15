@@ -137,7 +137,7 @@ const TextQuestion = ({ id }) => {
       <List
         className={classes.nestedList}
         subheader={
-          <ListSubheader component="div">Варианты ответа:</ListSubheader>
+          <ListSubheader disableSticky>Варианты ответа:</ListSubheader>
         }
       >
         {answers.map((value, index) => {

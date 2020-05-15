@@ -35,7 +35,7 @@ const ListElement = ({ index, name, questions }) => {
         <List
           disablePadding
           subheader={
-            <ListSubheader component="div">Вопросы к тексту</ListSubheader>
+            <ListSubheader disableSticky>Вопросы к тексту</ListSubheader>
           }
         >
           {questions.length !== 0
@@ -48,7 +48,7 @@ const ListElement = ({ index, name, questions }) => {
                   <List
                     disablePadding
                     subheader={
-                      <ListSubheader component="div">
+                      <ListSubheader disableSticky>
                         Варианты ответов:
                       </ListSubheader>
                     }

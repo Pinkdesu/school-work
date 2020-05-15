@@ -2,7 +2,7 @@
 
 ---
 
-В проекте: лаба 1, лаба 2, лаба 4, лаба 5
+В проекте: лаба 1, лаба 2, лаба 4, лаба 5, лаб 6
 Для всех лабораторных работ используется одно web-приложение с навигацией
 
 ---
@@ -39,3 +39,12 @@
 
 - Роутер тут - /api/router/lab4.js
 - Запросы к серверу тут - /src/components/main-lab4/main-lab4.jsx
+
+Лаб 6
+
+- Роутер тут - /api/router/lab6.js
+- Запросы к серверу тут - /src/components/main-lab6/main-lab6.jsx
+- СУБД - PostgreSQL
+- SQL builder - knex.js
+- Конфигурации для подключения к бд тут - /api/database/index.js
+- SQL-запросы для создания бд тут - /api/database/lab6_sql.sql
