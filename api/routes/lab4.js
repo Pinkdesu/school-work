@@ -9,6 +9,7 @@ router.get("/responce", (request, response) => {
     json: true,
   })
     .then((data) => {
+      data.result = data.result.split(" ").join("_");
       response.send(data);
     })
     .catch((error) => {
