@@ -15,7 +15,7 @@
     "knex": "^0.20.13",
     "morgan": "~1.9.1",
     "pg": "^7.18.2",
-    "properties-reader": "^2.0.0",
+    "properties-reader": "^2.2.0",
     "request-promise": "^4.2.5",
     "soap": "^0.31.0"
   }
